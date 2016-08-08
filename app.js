@@ -1,77 +1,131 @@
-var port = process.env.PORT || 3500,
-    http = require('http'),
-    fs = require('fs');
+'use strict';
 
-var spawn = require("child_process").spawn;
-var PythonShell = require('python-shell');
-var https = require('https');
-var util = require('util');
-var PAGE_TOKEN = "EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD";
-var VERIFY_TOKEN = "newtonIsTheGreatestManEverLived";
+// Getting started with Facebook Messaging Platform
+// https://developers.facebook.com/docs/messenger-platform/quickstart
 
-    server = https.createServer( function(event, context, callback) {
+const express = require('express');
+const request = require('superagent');
+const bodyParser = require('body-parser');
+const https = require('https');
 
-        console.dir(event.param);
+// Variables
+let pageToken = "";
+const verifyToken = "";
+const privkey = "";
+const cert = "";
+const chain = "";
 
-        if (event.method == 'POST') {
-            console.log("got POST");
-            var body = '';
-            event.on('data', function (data) {
-                body += data;
-                console.log("Partial body: " + body);
-            });
-            event.on('end', function () {
-                var tempostr = body.substring(5, body.length)
-                var decode = decodeURI(tempostr)
-                console.log("Body: " + decode);
-                if (decode != "fuckshit321b0") {
-                /*var process = spawn('python',["../kgb.py", body.substring(5, body.length)]);
+const app = express();
+const fs = require('fs');
 
-                process.stdout.on('data', function (data){
-                    console.log('back in app.js')
-                    console.log(data)
-                  });*/
-                  var options = {
-                    mode: 'text',
-                    args: [decodeURI(body.substring(5, body.length))]
-                  };
-                PythonShell.run("./kgb.py" , options,function (err, results) {
-                  if (err) throw err;
-                  //console.log('result: %j', results);
-                  console.log('back in app.js')
-                  console.log(results)
-                  var results = String(results)
-                  var respon = ""
-                  res.writeHead(200, {'Content-Type': 'text/html'});
-                  res.end(results);
-                }); }
-            });
-            //res.writeHead(200, {'Content-Type': 'text/html'});
-            //res.end('post received ');
-        }
-        else
-        {
-            console.log("GET");
-            var queryParams = event.params.querystring;
+app.use(bodyParser.json());
 
-            var rVerifyToken = queryParams['hub.verify_token']
+app.get('/webhook', (req, res) => {
+    if (req.query['hub.verify_token'] === verifyToken) {
+        return res.send(req.query['hub.challenge']);
+    }
+    res.send('Error, wrong validation token');
+});
+app.post('/webhook', (req, res) => {
+    const messagingEvents = req.body.entry[0].messaging;
 
-            if (rVerifyToken === VERIFY_TOKEN) {
-              var challenge = queryParams['hub.challenge']
-              callback(null, parseInt(challenge))
-            }else{
-              callback(null, 'Error, wrong validation token');
+    messagingEvents.forEach((event) => {
+        const sender = event.sender.id;
+
+        if (event.postback) {
+            const text = JSON.stringify(event.postback).substring(0, 200);
+            sendTextMessage(sender, 'Postback received: ' + text);
+        } else if (event.message && event.message.text) {
+            const text = event.message.text.trim().substring(0, 200);
+
+            if (text.toLowerCase() === 'generic') {
+                sendGenericMessage(sender);
+            } else {
+                sendTextMessage(sender, 'Text received, echo: ' + text);
             }
-            //var html = '<html><body><form method="post" action="http://localhost:3000">Name: <input type="text" name="name" /><input type="submit" value="Submit" /></form></body>';
-            //var html = fs.readFileSync('p1.html');
-            //res.writeHead(200, {'Content-Type': 'text/html'});
-            //res.end(html);
         }
-
     });
 
-// Listen on port 3000, IP defaults to 127.0.0.1
-server.listen(port);
+    res.sendStatus(200);
+});
 
-// Put a friendly message on the terminal
-console.log('Server running at ' + port + '/');
+function sendMessage (sender, message) {
+    request
+        .post('https://graph.facebook.com/v2.6/me/messages')
+        .query({access_token: pageToken})
+        .send({
+            recipient: {
+                id: sender
+            },
+            message: message
+        })
+        .end((err, res) => {
+            if (err) {
+                console.log('Error sending message: ', err);
+            } else if (res.body.error) {
+                console.log('Error: ', res.body.error);
+            }
+        });
+}
+
+function sendTextMessage (sender, text) {
+    sendMessage(sender, {
+        text: text
+    });
+}
+
+function sendGenericMessage (sender) {
+    sendMessage(sender, {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: [{
+                    title: 'First card',
+                    subtitle: 'Element #1 of an hscroll',
+                    image_url: 'http://messengerdemo.parseapp.com/img/rift.png',
+                    buttons: [{
+                        type: 'web_url',
+                        url: 'https://www.messenger.com/',
+                        title: 'Web url'
+                    }, {
+                        type: 'postback',
+                        title: 'Postback',
+                        payload: 'Payload for first element in a generic bubble'
+                    }]
+                }, {
+                    title: 'Second card',
+                    subtitle: 'Element #2 of an hscroll',
+                    image_url: 'http://messengerdemo.parseapp.com/img/gearvr.png',
+                    buttons: [{
+                        type: 'postback',
+                        title: 'Postback',
+                        payload: 'Payload for second element in a generic bubble'
+                    }]
+                }]
+            }
+        }
+    });
+}
+
+app.post('/token', (req, res) => {
+    if (req.body.verifyToken === verifyToken) {
+        pageToken = req.body.token;
+        return res.sendStatus(200);
+    }
+    res.sendStatus(403);
+});
+app.get('/token', (req, res) => {
+    if (req.body.verifyToken === verifyToken) {
+        return res.send({token: pageToken});
+    }
+    res.sendStatus(403);
+});
+
+ https.createServer({
+      key: fs.readFileSync(privkey),
+      cert: fs.readFileSync(cert),
+      ca: fs.readFileSync(chain)
+    }, app).listen(3500, function () {
+  console.log('App is ready on port 3500');
+});
