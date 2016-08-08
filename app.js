@@ -9,7 +9,7 @@ var util = require('util');
 var PAGE_TOKEN = "EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD";
 var VERIFY_TOKEN = "newtonIsTheGreatestManEverLived";
 
-    server = http.createServer( function(event, context, callback) {
+    server = https.createServer( function(event, context, callback) {
 
         console.dir(event.param);
 
