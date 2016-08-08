@@ -1,0 +1,41 @@
+Take postive relations and ask for more positive about that till a limit then change topic
+Take negative relations and ask for how can that be made positive
+
+https://api.projectoxford.ai/luis/v1/application?id=c413b2ef-382c-45bd-8ff0-f76d60e2a821&subscription-key=27a64c9f220b44dd8a90959b7d311f95&q=
+
+Hey There! I am natasha, how was your day?
+
+pos:
+Hey_UH There_EX !_.
+I_PRP am_VBP natasha_NN ,_, how_WRB was_VBD your_PRP$ day_NN ?_.
+
+dependency parser:
+[[{'from': 'ROOT', 'type': 'root', 'to': 'Hey'}, {'from': 'Hey', 'type': 'dep', 'to': 'There'}], [{'from': 'natasha', 'type': 'nsubj', 'to': 'I'}, {'from': 'natasha', 'type': 'cop', 'to': 'am'}, {'from': 'ROOT', 'type': 'root', 'to': 'natasha'}, {'from': 'day', 'type': 'advmod', 'to': 'how'}, {'from': 'day', 'type': 'cop', 'to': 'was'}, {'from': 'day', 'type': 'nmod:poss', 'to': 'your'}, {'from': 'natasha', 'type': 'ccomp', 'to': 'day'}]]
+
+{'from': {'word': 'ROOT', 'pos': 'EMPTY'}, 'type': 'root', 'to': {'word': 'Hey', 'pos': 'EMPTY'}}
+{'from': {'word': 'Hey', 'pos': 'EMPTY'}, 'type': 'dep', 'to': {'word': 'There', 'pos': 'EMPTY'}}
+{'from': {'word': 'natasha', 'pos': 'NN'}, 'type': 'nsubj', 'to': {'word': 'I', 'pos': 'PRP'}}
+{'from': {'word': 'natasha', 'pos': 'NN'}, 'type': 'cop', 'to': {'word': 'am', 'pos': 'EMPTY'}}
+{'from': {'word': 'ROOT', 'pos': 'EMPTY'}, 'type': 'root', 'to': {'word': 'natasha', 'pos': 'NN'}}
+{'from': {'word': 'day', 'pos': 'NN'}, 'type': 'advmod', 'to': {'word': 'how', 'pos': 'WRB'}}
+{'from': {'word': 'day', 'pos': 'NN'}, 'type': 'cop', 'to': {'word': 'was', 'pos': 'VBD'}}
+{'from': {'word': 'day', 'pos': 'NN'}, 'type': 'nmod:poss', 'to': {'word': 'your', 'pos': 'PRP$'}}
+{'from': {'word': 'natasha', 'pos': 'NN'}, 'type': 'ccomp', 'to': {'word': 'day', 'pos': 'NN'}}
+{'from': {'word': 'had', 'pos': 'VBD'}, 'type': 'nsubj', 'to': {'word': 'i', 'pos': 'EMPTY'}}
+{'from': {'word': 'ROOT', 'pos': 'EMPTY'}, 'type': 'root', 'to': {'word': 'had', 'pos': 'VBD'}}
+{'from': {'word': 'day', 'pos': 'NN'}, 'type': 'det', 'to': {'word': 'a', 'pos': 'EMPTY'}}
+{'from': {'word': 'day', 'pos': 'NN'}, 'type': 'amod', 'to': {'word': 'good', 'pos': 'JJ'}}
+{'from': {'word': 'had', 'pos': 'VBD'}, 'type': 'nmod:tmod', 'to': {'word': 'day', 'pos': 'NN'}}
+
+-- Remove sentences which don't have useful pos. eg. Hey_UH There_EX !_.
+-- Collect all NN and PRP in an array
+-- Combine NN and PRP to single entity
+-- Add dependencies related to this (NN + PRP)
+-- Collect all WRB
+-- Skip root type dependencies
+-- Collect NN (or NN + PRP) relation with WRB, this helps us to know that there is info to associate with this noun
+-- Use nsubj to get type (+ve or -ve)
+-- Indirectly combine NN with PRP using nmod
+-- If a JJ has neg then store it's negative during nsubj relation
+-- If no PRP in sentence then associate stuffs with the speaker
+-- Use VBDs to get tense of sentence
