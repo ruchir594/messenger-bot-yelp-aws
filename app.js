@@ -1,9 +1,6 @@
 var port = process.env.PORT || 3500,
     http = require('http'),
-    fs = require('fs'),
-    html = fs.readFileSync('p1.html'),
-    submit_success = fs.readFileSync('p2.html'),
-    image_res = fs.readFileSync('p3.html');
+    fs = require('fs');
 
 var spawn = require("child_process").spawn;
 var PythonShell = require('python-shell');
