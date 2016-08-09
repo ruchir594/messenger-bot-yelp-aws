@@ -8,6 +8,9 @@ const request = require('superagent');
 const bodyParser = require('body-parser');
 const https = require('https');
 
+var spawn = require("child_process").spawn;
+var PythonShell = require('python-shell');
+
 // Variables
 let pageToken = "EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD";
 const verifyToken = "newtonIsTheGreatestManEverLived";
@@ -42,6 +45,27 @@ app.post('/webhook', (req, res) => {
                 sendGenericMessage(sender);
             } else {
                 sendTextMessage(sender, 'Text received, so gtfo?: ' + text);
+                var options = {
+                  mode: 'text',
+                  args: [text]
+                };
+                PythonShell.run("./lambda_function.py" , options,function (err, results) {
+                  if (err) throw err;
+                  //console.log('result: %j', results);
+                  console.log('back in app.js')
+                  console.log(results)
+                  var results = String(results)
+                  var places = results.split("@");
+                  //console.log(places)
+                  if (places[0] == '"jankiap50') {
+                      sendTextMessage(sender, places[1]);
+                      sendTextMessage(sender, "sorry, but i will soon be a lot smarter. Please come back in a week. Meanwhile, please please like the page.")
+                      //sendTextMessage(sender, places[2]);
+                      //sendTextMessage(sender, places[3])
+                  }
+                  else {
+                    sendTextMessage(sender, results)
+                });
             }
         }
     });

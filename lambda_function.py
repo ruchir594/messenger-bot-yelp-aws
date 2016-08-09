@@ -84,3 +84,4 @@ def api_callee(event, context):
 #print type(lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0))
 #print lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0)
 #print lambda_handler("I would like to live in new york city, or in lake forest area.", 0)
+lambda_handler(str(sys.argv[1]), 0)
