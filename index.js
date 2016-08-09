@@ -12,8 +12,9 @@ var spawn = require("child_process").spawn;
 var PythonShell = require('python-shell');
 
 // Variables
-let pageToken = "EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD";
-const verifyToken = "newtonIsTheGreatestManEverLived";
+//let pageToken = "";
+var PAGE_TOKEN = "";
+const verifyToken = "";
 const privkey = "/etc/letsencrypt/live/yelper.tonatasha.com/privkey.pem";
 const cert = "/etc/letsencrypt/live/yelper.tonatasha.com/cert.pem";
 const chain = "/etc/letsencrypt/live/yelper.tonatasha.com/chain.pem";
