@@ -18,7 +18,7 @@ def oldner(event, userid):
     flag = False
     for i in data["people"]:
         if i["userid"] == userid:
-            i["count"] = i["count"] + 1
+            #i["count"] = i["count"] + 1
             flag = True
             with open('data.json', 'w') as f:
                  json.dump(data, f)
@@ -79,7 +79,7 @@ def lambda_handler(event, userid, context):
     b = potentiav.cities
     #print 'b',b
     if b == [] and person["location"] == "":
-        g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ I cant find the city from your text, @ please specify both food and city/town/neighbourhood'
+        g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I do not know your location. Please enter a valid city.'
         print g
         return
     else:
@@ -99,7 +99,7 @@ def lambda_handler(event, userid, context):
                 a = a + c_cmall + ' '
         a = api_callee({ 'item': a, 'location': b[0]}, 0)
         if flag == True:
-            a = a + "The last location you gave was " + b[0] + " @ @ @ @ @"
+            a = a + "Your last location was " + b[0] + " @ @ @ @ @"
         else:
             a = a + " @ @ @ @ @"
         print a

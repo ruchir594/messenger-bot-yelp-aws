@@ -89,7 +89,7 @@ app.post('/webhook', (req, res) => {
                         sendTextMessage(sender, "Hi there, My name is Natasha and I am a smart AI.")
                       }
                       else if(words_text[0].toLowerCase() == 'what'){
-                        sendTextMessage(sender, "I am smart bot that uses Yelp API to help you find food in your area. Please tell me your city and what you want to eat. I will soon be smarter than I am, please come back in a week.")
+                        sendTextMessage(sender, "I use Yelp to find food near you.")
                         sendTextMessage(sender, "Meanwhile, please please like my page.")
                       }
                       else if(words_text[0].toLowerCase() == 'how'){
@@ -119,7 +119,7 @@ app.post('/webhook', (req, res) => {
                         sendTextMessage(sender, "Okay, maybe!")
                       }
                       else {
-                        sendTextMessage(sender, "You gotta tell me your city and what you want to eat... ")
+                        sendTextMessage(sender, "hmmm... I can't tell your location. Tell me your city.")
                         sendTextMessage(sender, "Meanwhile, please please like my page.")
                       }
 
@@ -168,6 +168,7 @@ app.post('/webhook', (req, res) => {
                           sendTextMessage(sender, places[25]);
                           }
                           sendGenericMessage(sender, aplace);
+                          sendTextMessage(sender, "Like the page? Share?.")
                         }
                       });
               } //bracket 102 close
@@ -207,6 +208,8 @@ function sendGenericMessage (sender, places) {
   var textual0 = places[0].split('^')
   var textual1 = places[1].split('^')
   var textual2 = places[2].split('^')
+  var textual3 = places[3].split('^')
+  var textual4 = places[4].split('^')
     sendMessage(sender, {
         attachment: {
           type: "template",
@@ -240,6 +243,26 @@ function sendGenericMessage (sender, places) {
               buttons: [{
                 type: "web_url",
                 url: textual2[1],
+                title: "Open in Yelp"
+              }],
+            },{
+              title: textual3[0],
+              subtitle: textual3[3] + textual3[4],
+              item_url: textual3[1],
+              image_url: textual3[2],
+              buttons: [{
+                type: "web_url",
+                url: textual3[1],
+                title: "Open in Yelp"
+              }],
+            },{
+              title: textual4[0],
+              subtitle: textual4[3] + textual4[4],
+              item_url: textual4[1],
+              image_url: textual4[2],
+              buttons: [{
+                type: "web_url",
+                url: textual4[1],
                 title: "Open in Yelp"
               }],
             },{
