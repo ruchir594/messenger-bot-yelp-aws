@@ -164,6 +164,9 @@ app.post('/webhook', (req, res) => {
                               i=i+increment;
                               }
                           }
+                          if (places[25] != ""){
+                          sendTextMessage(sender, places[25]);
+                          }
                           sendGenericMessage(sender, aplace);
                         }
                       });
