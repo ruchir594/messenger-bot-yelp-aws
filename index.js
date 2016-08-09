@@ -41,9 +41,6 @@ app.post('/webhook', (req, res) => {
         } else if (event.message && event.message.text) {
             const text = event.message.text.trim().substring(0, 200);
 
-            if (text.toLowerCase() === 'generic') {
-                sendGenericMessage(sender);
-            } else {
                 sendTextMessage(sender, 'Text received, so gtfo?: ' + text);
                 var options = {
                   mode: 'text',
@@ -64,10 +61,25 @@ app.post('/webhook', (req, res) => {
                       //sendTextMessage(sender, places[3])
                   }
                   else {
-                    sendTextMessage(sender, places[0] + places[1] + places[2] + places[3]);
+                    var aplace = [];
+                    var aplacea="";
+                    var i = 0;
+                    var increment = 5;
+                    while (i < places.length){
+                        //aplacea = places[i]+"\n"+places[i+1]+"\n"+places[i+3]+"\n"+places[i+4];
+                        aplace.push(places[i]+"^"+places[i+1]+"^"+places[i+2]+"^"+places[i+3]+"^"+places[i+4]);
+                        if (typeof(places[i+1]) == typeof("hello")){
+                        //sendTextMessage(sender, aplacea);
+                        i=i+increment;
+                        }
+                        else {
+                        i=i+increment;
+                        }
+                    }
+                    sendGenericMessage(sender, aplace);
                   }
                 });
-            }
+
         }
     });
 
@@ -99,36 +111,57 @@ function sendTextMessage (sender, text) {
     });
 }
 
-function sendGenericMessage (sender) {
+function sendGenericMessage (sender, places) {
+  var textual0 = places[0].split('^')
+  var textual1 = places[1].split('^')
+  var textual2 = places[2].split('^')
     sendMessage(sender, {
         attachment: {
-            type: 'template',
-            payload: {
-                template_type: 'generic',
-                elements: [{
-                    title: 'First card',
-                    subtitle: 'Element #1 of an hscroll',
-                    image_url: 'http://messengerdemo.parseapp.com/img/rift.png',
-                    buttons: [{
-                        type: 'web_url',
-                        url: 'https://www.messenger.com/',
-                        title: 'Web url'
-                    }, {
-                        type: 'postback',
-                        title: 'Postback',
-                        payload: 'Payload for first element in a generic bubble'
-                    }]
-                }, {
-                    title: 'Second card',
-                    subtitle: 'Element #2 of an hscroll',
-                    image_url: 'http://messengerdemo.parseapp.com/img/gearvr.png',
-                    buttons: [{
-                        type: 'postback',
-                        title: 'Postback',
-                        payload: 'Payload for second element in a generic bubble'
-                    }]
-                }]
-            }
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [{
+              title: textual0[0],
+              subtitle: textual0[3] + textual0[4],
+              item_url: textual0[1],
+              image_url: textual0[2],
+              buttons: [{
+                type: "web_url",
+                url: textual0[1],
+                title: "Open in Yelp"
+              }],
+            }, {
+              title: textual1[0],
+              subtitle: textual1[3] + textual1[4],
+              item_url: textual1[1],
+              image_url: textual1[2],
+              buttons: [{
+                type: "web_url",
+                url: textual2[1],
+                title: "Open in Yelp"
+              }],
+            },{
+              title: textual2[0],
+              subtitle: textual2[3] + textual2[4],
+              item_url: textual2[1],
+              image_url: textual2[2],
+              buttons: [{
+                type: "web_url",
+                url: textual2[1],
+                title: "Open in Yelp"
+              }],
+            },{
+              title: "Powered by yelp",
+              subtitle: "Powered by http://tonatasha.com",
+              item_url: "http://tonatasha.com",
+              image_url: "http://tonatasha.com/img/yelp/bigbutton.png",
+              buttons: [{
+                type: "web_url",
+                url: "http://tonatasha.com",
+                title: "Go to Natasha"
+              }],
+            }]
+          }
         }
     });
 }
