@@ -41,7 +41,7 @@ app.post('/webhook', (req, res) => {
             if (text.toLowerCase() === 'generic') {
                 sendGenericMessage(sender);
             } else {
-                sendTextMessage(sender, 'Text received, echo: ' + text);
+                sendTextMessage(sender, 'Text received, so gtfo: ' + text);
             }
         }
     });
