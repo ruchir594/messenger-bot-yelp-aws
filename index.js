@@ -9,11 +9,11 @@ const bodyParser = require('body-parser');
 const https = require('https');
 
 // Variables
-let pageToken = "";
-const verifyToken = "";
-const privkey = "";
-const cert = "";
-const chain = "";
+let pageToken = "EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD";
+const verifyToken = "newtonIsTheGreatestManEverLived";
+const privkey = "/etc/letsencrypt/live/yelper.tonatasha.com/privkey.pem";
+const cert = "/etc/letsencrypt/live/yelper.tonatasha.com/cert.pem";
+const chain = "/etc/letsencrypt/live/yelper.tonatasha.com/chain.pem";
 
 const app = express();
 const fs = require('fs');
@@ -126,6 +126,6 @@ app.get('/token', (req, res) => {
       key: fs.readFileSync(privkey),
       cert: fs.readFileSync(cert),
       ca: fs.readFileSync(chain)
-    }, app).listen(3500, function () {
-  console.log('App is ready on port 3500');
+    }, app).listen(55555, function () {
+  console.log('App is ready on port 55555');
 });
