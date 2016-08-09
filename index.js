@@ -57,7 +57,7 @@ app.post('/webhook', (req, res) => {
                   var results = String(results)
                   var places = results.split("@");
                   //console.log(places)
-                  if (places[0] == '"jankiap50') {
+                  if (places[0] == 'jankiap50') {
                       sendTextMessage(sender, places[1]);
                       sendTextMessage(sender, "sorry, but i will soon be a lot smarter. Please come back in a week. Meanwhile, please please like the page.")
                       //sendTextMessage(sender, places[2]);
