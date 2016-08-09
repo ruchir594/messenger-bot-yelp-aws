@@ -126,6 +126,6 @@ app.get('/token', (req, res) => {
       key: fs.readFileSync(privkey),
       cert: fs.readFileSync(cert),
       ca: fs.readFileSync(chain)
-    }, app).listen(55555, function () {
-  console.log('App is ready on port 55555');
+    }, app).listen(3500, function () {
+  console.log('App is ready on port 3500');
 });
