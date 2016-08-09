@@ -64,7 +64,7 @@ app.post('/webhook', (req, res) => {
                       //sendTextMessage(sender, places[3])
                   }
                   else {
-                    sendTextMessage(sender, results);
+                    sendTextMessage(sender, places[0] + places[1] + places[2] + places[3]);
                   }
                 });
             }
