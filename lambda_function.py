@@ -84,9 +84,12 @@ def api_callee(event, context):
     #print str(response.businesses[0].name)
     #return str(response.businesses[0].name)
 
+file = open("data.txt", "w")
+file.write(sys.argv[2])
+file.close()
 # Writing JSON data
-with open('data.json', 'w') as f:
-     json.dump(sys.argv[2], f)
+#with open('data.json', 'w') as f:
+#     json.dump(sys.argv[2], f)
 
 #print type(lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0))
 #print lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0)
