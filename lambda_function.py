@@ -30,7 +30,8 @@ def lambda_handler(event, context):
     #print 'b',b
     if b == []:
         g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ I cant find the city from your text, @ please specify both food and city/town/neighbourhood'
-        return g
+        print g
+        return
     else:
         d2 = getWords(b[0])
         #print d2
