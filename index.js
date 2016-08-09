@@ -119,7 +119,7 @@ app.post('/webhook', (req, res) => {
                         sendTextMessage(sender, "Okay, maybe!")
                       }
                       else {
-                        sendTextMessage(sender, "I am just front end Yelp API integration, I am not allowed to do anything else. Give me the food you want and city/town you are in. I will soon be smarter than I am, please come back in a week. I just got a but smarter. ")
+                        sendTextMessage(sender, "You gotta tell me your city and what you want to eat... ")
                         sendTextMessage(sender, "Meanwhile, please please like my page.")
                       }
 
@@ -132,7 +132,7 @@ app.post('/webhook', (req, res) => {
                       //sendTextMessage(sender, 'Text received, so gtfo?: ' + text);
                       var options = {
                         mode: 'text',
-                        args: [text]
+                        args: [text, sender]
                       };
                       PythonShell.run("./lambda_function.py" , options,function (err, results) {
                         if (err) throw err;
