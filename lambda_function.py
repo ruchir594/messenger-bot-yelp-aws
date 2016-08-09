@@ -41,7 +41,7 @@ def lambda_handler(event, context):
         #print a
         #print b[0]
         #return 0
-        return api_callee({ 'item': a, 'location': b[0]}, 0)
+        api_callee({ 'item': a, 'location': b[0]}, 0)
 
 def api_callee(event, context):
     # read API keys
@@ -77,7 +77,7 @@ def api_callee(event, context):
 
     #return response.businesses[0].name, response.businesses[0].url.partition("?")[0], response.businesses[0].rating, response.businesses[0].display_phone
     print str(placesYelp)
-    return placesYelp
+    #return placesYelp
     #print str(response.businesses[0].name)
     #return str(response.businesses[0].name)
 
