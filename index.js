@@ -168,7 +168,7 @@ app.post('/webhook', (req, res) => {
                           sendTextMessage(sender, places[25]);
                           }
                           sendGenericMessage(sender, aplace);
-                          sendTextMessage(sender, "Like the page? Share?.")
+                          //sendTextMessage(sender, "Like the page? Share?.")
                         }
                       });
               } //bracket 102 close
@@ -268,12 +268,12 @@ function sendGenericMessage (sender, places) {
             },{
               title: "Powered by yelp",
               subtitle: "Powered by http://tonatasha.com",
-              item_url: "http://tonatasha.com",
+              item_url: "https://www.facebook.com/Yelp-Bot-1750022258569181/",
               image_url: "http://tonatasha.com/img/yelp/bigbutton.png",
               buttons: [{
                 type: "web_url",
-                url: "http://tonatasha.com",
-                title: "Go to Natasha"
+                url: "https://www.facebook.com/Yelp-Bot-1750022258569181/",
+                title: "Like the page"
               }],
             }]
           }
