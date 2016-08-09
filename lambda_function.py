@@ -42,8 +42,9 @@ def lambda_handler(event, context):
         #print a
         #print b[0]
         #return 0
-        api_callee({ 'item': a, 'location': b[0]}, 0)
-
+        a = api_callee({ 'item': a, 'location': b[0]}, 0)
+        print a
+        return
 def api_callee(event, context):
     # read API keys
     with io.open('config_secret.json') as cred:
@@ -77,7 +78,8 @@ def api_callee(event, context):
                 str(response.businesses[2].display_phone)+'@'
 
     #return response.businesses[0].name, response.businesses[0].url.partition("?")[0], response.businesses[0].rating, response.businesses[0].display_phone
-    print str(placesYelp)
+    #print str(placesYelp)
+    return placesYelp
     #return placesYelp
     #print str(response.businesses[0].name)
     #return str(response.businesses[0].name)
