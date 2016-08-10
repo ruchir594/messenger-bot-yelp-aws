@@ -1,4 +1,4 @@
-Yelp Bot.
+<b>Yelp Bot for Facebook Messenger. </b>
 
 A bot to parse english text in order to generate queries using Yelp API.
 
