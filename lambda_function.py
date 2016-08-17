@@ -134,6 +134,7 @@ def lambda_handler(event, userid, context):
         print g
         return
     else:
+        c = getWords(event)
         flag = False
         if b == []:
             flag = True
