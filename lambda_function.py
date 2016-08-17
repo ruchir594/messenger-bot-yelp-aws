@@ -129,6 +129,7 @@ def lambda_handler(event, userid, context):
     data_ayrton = data_ayrton + b
     b = data_ayrton
     print b
+    return
     ##############################################################################
     if b == [] and person["location"] == "":
         g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I do not know your location. Please enter a valid city.'
@@ -193,12 +194,12 @@ def api_callee(event, context):
                 str(response.businesses[3].mobile_url.partition("?")[0])+'@' + \
                 str(response.businesses[3].image_url) +'@' + \
                 str(response.businesses[3].rating)+'@' + \
-                str(response.businesses[3].display_phone)+'@' + \
-                str(response.businesses[4].name)+'@' + \
-                str(response.businesses[4].mobile_url.partition("?")[0])+'@'+ \
-                str(response.businesses[4].image_url) +'@' + \
-                str(response.businesses[4].rating)+'@' + \
-                str(response.businesses[4].display_phone)+'@'
+                str(response.businesses[3].display_phone)+'@' #+ \
+                #str(response.businesses[4].name)+'@' + \
+                #str(response.businesses[4].mobile_url.partition("?")[0])+'@'+ \
+                #str(response.businesses[4].image_url) +'@' + \
+                #str(response.businesses[4].rating)+'@' + \
+                #str(response.businesses[4].display_phone)+'@'
 
     #return response.businesses[0].name, response.businesses[0].url.partition("?")[0], response.businesses[0].rating, response.businesses[0].display_phone
     #print str(placesYelp)
