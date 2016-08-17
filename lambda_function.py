@@ -174,6 +174,7 @@ def api_callee(event, context):
 
     response = client.search(event['location'], **params)
     placesYelp = ""
+    print response
 
     placesYelp = str(response.businesses[0].name) +'@'+ \
                 str(response.businesses[0].mobile_url.partition("?")[0]) +'@' + \
