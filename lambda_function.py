@@ -4,6 +4,7 @@ import io
 import json
 import re
 import sys
+import urllib
 sys.path.insert(0, './bot')
 import natasha_chat
 from geotext import GeoText
