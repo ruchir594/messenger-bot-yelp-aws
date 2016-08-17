@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Yelp Bot.
+=======
+<b>Yelp Bot for Facebook Messenger. </b>
+>>>>>>> 49df4abe0cfab9d5dc7c5e90fe684da5628bc7b6
 
 A bot to parse english text in order to generate queries using Yelp API.
 
