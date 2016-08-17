@@ -51,6 +51,7 @@ class Client(object):
         try:
             conn = six.moves.urllib.request.urlopen(signed_url, None)
         except six.moves.urllib.error.HTTPError as error:
+            return "jankiap50_error_yelp"
             self._error_handler.raise_error(error)
         else:
             try:

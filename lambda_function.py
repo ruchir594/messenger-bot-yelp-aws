@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import urllib
+import six
 sys.path.insert(0, './bot')
 import natasha_chat
 from geotext import GeoText
@@ -181,6 +182,9 @@ def lambda_handler(event, userid, context):
         if a == 'jankiap50':
             print 'jankiap50@ Aha!, I can only help you find food.'
             return
+        elif a == 'jankiap50_error_yelp':
+            print 'jankiap50@ Yelp! unavailable in your location ' + b
+            return
         else:
             if flag == True:
                 a = a + "Your last location was " + b + " @ @ @ @ @"
@@ -205,10 +209,14 @@ def api_callee(event, context):
     #print event['item']
     #print event['location']
     response = client.search(event['location'], **params)
+    #print response
     placesYelp = ""
     #print response.businesses[0]
-    if len(response.businesses) == 0:
-        placesYelp = 'jankiap50'
+    try:
+        if len(response.businesses) == 0:
+            placesYelp = 'jankiap50'
+    except TypeError:
+        placesYelp = 'jankiap50_error_yelp'
     else:
         placesYelp = str(response.businesses[0].name) +'@'+ \
                     str(response.businesses[0].mobile_url.partition("?")[0]) +'@' + \
