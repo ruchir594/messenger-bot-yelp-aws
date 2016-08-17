@@ -216,4 +216,5 @@ def api_callee(event, context):
 #print type(lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0))
 #print lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0)
 #print lambda_handler("I would like to live in new york city, or in lake forest area.", 0)
-lambda_handler(str(sys.argv[1]), sys.argv[2], 0)
+jdblove = urllib.unquote_plus(urllib.unquote_plus(str(sys.argv[1])))
+lambda_handler(str(jdblove), sys.argv[2], 0)
