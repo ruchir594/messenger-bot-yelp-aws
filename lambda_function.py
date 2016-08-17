@@ -151,8 +151,7 @@ def lambda_handler(event, userid, context):
     #return
     ##############################################################################
     if b == '' and person["location"] == "":
-        g = 'jankiap50 @ Hmmm.... I cant tell your location. Please enter a valid city.'
-        print g
+        print 'jankiap50 @ Hmmm.... I cant tell your location. Please enter a valid city.'
         return
     else:
         c = getWords(event)
@@ -179,7 +178,7 @@ def lambda_handler(event, userid, context):
         else:
             a = api_callee({ 'item': a, 'location': b}, 0)
         if a == 'jankiap50':
-            print  'jankiap50 @ Aha!, I can only help you find food.'
+            print 'jankiap50 @ Aha!, I can only help you find food.'
             return
         else:
             if flag == True:
