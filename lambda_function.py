@@ -151,7 +151,8 @@ def lambda_handler(event, userid, context):
     #return
     ##############################################################################
     if b == '' and person["location"] == "":
-        print 'jankiap50 @ Hmmm.... I cant tell your location. Please enter a valid city.'
+        a = 'jankiap50@ Hmmm.... I cant tell your location. Please enter a valid city.'
+        print a
         return
     else:
         c = getWords(event)
