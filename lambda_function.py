@@ -173,12 +173,12 @@ def lambda_handler(event, userid, context):
             if c_cmall.lower() not in d1 and c_cmall.lower() not in d2:
                 a = a + c_cmall + ' '
         if a == '' and flag_city_this == True:
-            print 'jankiap50 @ I think your location is ' + b + ' . What are you looking for?'
+            print 'jankiap50@ I think your location is ' + b + ' . What are you looking for?'
             return
         else:
             a = api_callee({ 'item': a, 'location': b}, 0)
         if a == 'jankiap50':
-            print 'jankiap50 @ Aha!, I can only help you find food.'
+            print 'jankiap50@ Aha!, I can only help you find food.'
             return
         else:
             if flag == True:
