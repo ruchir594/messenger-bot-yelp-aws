@@ -146,33 +146,32 @@ def lambda_handler(event, userid, context):
     j = ''
     for i in data_ayrton:
         j = j + i + ' '
-    b.append(j)
+    b = j
     #print b
     #return
     ##############################################################################
-    if b == [] and person["location"] == "":
+    if b == '' and person["location"] == "":
         g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I cant tell your location. Please enter a valid city.'
         print g
         return
     else:
         c = getWords(event)
         flag = False
-        if b == []:
+        if b == '':
             flag = True
-            b.append('')
-            b[0] = person["location"]
+            b = person["location"]
         else:
-            person["location"] = b[0]
+            person["location"] = b
             updatejson(person)
-        d2 = getWords(b[0])
+        d2 = getWords(b)
         #print d2
         a = ''
         for c_cmall in c:
             if c_cmall not in d1 and c_cmall not in d2:
                 a = a + c_cmall + ' '
-        a = api_callee({ 'item': a, 'location': b[0]}, 0)
+        a = api_callee({ 'item': a, 'location': b}, 0)
         if flag == True:
-            a = a + "Your last location was " + b[0] + " @ @ @ @ @"
+            a = a + "Your last location was " + b + " @ @ @ @ @"
         else:
             a = a + " @ @ @ @ @"
         print a
