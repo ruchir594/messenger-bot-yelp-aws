@@ -145,7 +145,7 @@ app.post('/webhook', (req, res) => {
                         //console.log(places)
                         if (places[0] == 'jankiap50') {
                             sendTextMessage(sender, places[1]);
-                            sendTextMessage(sender, "Hmmmm, didnt get what you are saying. Please come back in a week. Meanwhile, please please like the page.")
+                            //sendTextMessage(sender, "Hmmmm, didnt get what you are saying. Please come back in a week. Meanwhile, please please like the page.")
                             //sendTextMessage(sender, places[2]);
                             //sendTextMessage(sender, places[3])
                         }

@@ -151,7 +151,7 @@ def lambda_handler(event, userid, context):
     #return
     ##############################################################################
     if b == '' and person["location"] == "":
-        g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I cant tell your location. Please enter a valid city.'
+        g = 'jankiap50 @ Hmmm.... I cant tell your location. Please enter a valid city.'
         print g
         return
     else:
