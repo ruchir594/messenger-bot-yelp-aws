@@ -129,7 +129,7 @@ def lambda_handler(event, userid, context):
     data_ayrton = data_ayrton + b
     b = data_ayrton
     print b
-    return
+    #return
     ##############################################################################
     if b == [] and person["location"] == "":
         g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I do not know your location. Please enter a valid city.'
