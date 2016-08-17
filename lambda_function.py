@@ -180,7 +180,7 @@ def lambda_handler(event, userid, context):
         else:
             a = api_callee({ 'item': a, 'location': b}, 0)
         if a == 'jankiap50':
-            print 'jankiap50@ Aha!, I can only help you find food.'
+            print 'jankiap50@ Aha!, I can only help you find food. I searched at location: ' + b
             return
         elif a == 'jankiap50_error_yelp':
             print 'jankiap50@ Yelp! unavailable in your location ' + b
@@ -212,11 +212,10 @@ def api_callee(event, context):
     #print response
     placesYelp = ""
     #print response.businesses[0]
-    try:
-        if len(response.businesses) == 0:
-            placesYelp = 'jankiap50'
-    except TypeError:
+    if response.businesses == None:
         placesYelp = 'jankiap50_error_yelp'
+    elif len(response.businesses) == 0:
+        placesYelp = 'jankiap50'
     else:
         placesYelp = str(response.businesses[0].name) +'@'+ \
                     str(response.businesses[0].mobile_url.partition("?")[0]) +'@' + \
