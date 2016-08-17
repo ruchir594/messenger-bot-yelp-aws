@@ -210,7 +210,7 @@ function sendGenericMessage (sender, places) {
   var textual1 = places[1].split('^')
   var textual2 = places[2].split('^')
   var textual3 = places[3].split('^')
-  //var textual4 = places[4].split('^')
+  var textual4 = places[4].split('^')
     sendMessage(sender, {
         attachment: {
           type: "template",
@@ -254,6 +254,16 @@ function sendGenericMessage (sender, places) {
               buttons: [{
                 type: "web_url",
                 url: textual3[1],
+                title: "Open in Yelp"
+              }],
+            },{
+              title: textual4[0],
+              subtitle: textual4[3] + textual4[4],
+              item_url: textual4[1],
+              image_url: textual4[2],
+              buttons: [{
+                type: "web_url",
+                url: textual4[1],
                 title: "Open in Yelp"
               }],
             },{

@@ -94,7 +94,17 @@ def lambda_handler(event, userid, context):
             else:
                 kiss = kiss + c_cmall[:-1] + ' '
                 bang = bang + c_cmall[:-1] + ' ' + c_cmall[-1] + ' '
-
+    #################################################################################
+    c = getWords_special_location(event)
+    a = ''
+    for c_cmall in c:
+        if c_cmall not in d1:
+            a = a + c_cmall.title() + ' '
+        else:
+            a = a + c_cmall + ' '
+    #print a
+    potentiav = GeoText(a)
+    b1 = potentiav.cities
     #################################################################################
     a = crf_exec(bang, 0)
     i=0
@@ -108,9 +118,6 @@ def lambda_handler(event, userid, context):
             j = i[0]
         data_ayrton.append([str(j), str(i[1]), str(i[2]), str(i[3])])
     c = data_ayrton
-    ###################################################################
-    potentiav = GeoText(kiss)
-    b = potentiav.cities
     ######################################################################
     data_ayrton = []
     i=0
@@ -124,15 +131,27 @@ def lambda_handler(event, userid, context):
             p_loc = ''
         i = i + 1
             #p_loc_ref = []
-    #print ("i", i)
-    #print ("len(self.message_text)", len(self.message_text))
-    data_ayrton = data_ayrton + b
-    b = data_ayrton
-    print b
+    j=''
+    for i in data_ayrton:
+        j = j + i
+    j=j.replace(' ','')
+    k=''
+    for i in b1:
+        k = k + i
+    k=k.replace(' ','')
+    if j!=k:
+        data_ayrton = data_ayrton + b1
+    #print data_ayrton
+    b = []
+    j = ''
+    for i in data_ayrton:
+        j = j + i + ' '
+    b.append(j)
+    #print b
     #return
     ##############################################################################
     if b == [] and person["location"] == "":
-        g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I do not know your location. Please enter a valid city.'
+        g = 'jankiap50@' + natasha_chat.eliza_chat(event) + ' @ Hmmm.... I cant tell your location. Please enter a valid city.'
         print g
         return
     else:
@@ -172,9 +191,11 @@ def api_callee(event, context):
         'limit': 5
     }
 
+    #print event['item']
+    #print event['location']
     response = client.search(event['location'], **params)
     placesYelp = ""
-    print response
+    #print response.businesses[0]
 
     placesYelp = str(response.businesses[0].name) +'@'+ \
                 str(response.businesses[0].mobile_url.partition("?")[0]) +'@' + \
@@ -195,12 +216,12 @@ def api_callee(event, context):
                 str(response.businesses[3].mobile_url.partition("?")[0])+'@' + \
                 str(response.businesses[3].image_url) +'@' + \
                 str(response.businesses[3].rating)+'@' + \
-                str(response.businesses[3].display_phone)+'@' #+ \
-                #str(response.businesses[4].name)+'@' + \
-                #str(response.businesses[4].mobile_url.partition("?")[0])+'@'+ \
-                #str(response.businesses[4].image_url) +'@' + \
-                #str(response.businesses[4].rating)+'@' + \
-                #str(response.businesses[4].display_phone)+'@'
+                str(response.businesses[3].display_phone)+'@' + \
+                str(response.businesses[4].name)+'@' + \
+                str(response.businesses[4].mobile_url.partition("?")[0])+'@'+ \
+                str(response.businesses[4].image_url) +'@' + \
+                str(response.businesses[4].rating)+'@' + \
+                str(response.businesses[4].display_phone)+'@'
 
     #return response.businesses[0].name, response.businesses[0].url.partition("?")[0], response.businesses[0].rating, response.businesses[0].display_phone
     #print str(placesYelp)
