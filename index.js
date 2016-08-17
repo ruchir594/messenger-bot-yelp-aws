@@ -13,7 +13,7 @@ var PythonShell = require('python-shell');
 
 // Variables
 //let pageToken = "";
-var PAGE_TOKEN = "";
+let pageToken = "";
 const verifyToken = "";
 const privkey = "/etc/letsencrypt/live/yelper.tonatasha.com/privkey.pem";
 const cert = "/etc/letsencrypt/live/yelper.tonatasha.com/cert.pem";

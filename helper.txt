@@ -1,6 +1,6 @@
 Facebook Hey Natasha demo using Ubuntu at ssh -i ../lib/jdblove.pem ubuntu@ec2-54-245-22-185.us-west-2.compute.amazonaws.com
 
-curl -i -H "Content-Type: application/json" -X POST -d "{\"verifyToken\": \"newtonIsTheGreatestManEverLived\", \"token\": \"EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD\"}" https://yelper.tonatasha.com:55555/token
+curl -i -H "Content-Type: application/json" -X POST -d "{\"verifyToken\": \"newtonIsTheGreatestManEverLived\", \"token\": \"EAAJffei4MlEBAAsOcdoRvIXuvZADZAIpCDqEozNZB5OcyKZBZCCn4yWU7lCLut0hGyZCHpNBjVohXbE8TwunqnwZA1nWivurifm9iMVyM74pNJvwg0WC9UriuJABn0crPMvyRm6sFzI8BfWeQ8nXWDiyJgPs4qw2fP84N7JEuE9FwZDZD\"}" https://yelper.tonatasha.com:3600/token
 
 
-curl k -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=EAACe5CsbT1oBAAvUT3lphTCAlWMP1wfVZC41k5uHO8LwdtRmgLNq6KrOxJmVxBZCU7Np9LEQOZCk5c9LzedzeJQr1IZBWFuSBxbWxUxwXaylyYxe31vbisHKvygQqkuEsS0h2TodmzCZBF1hjFBYMwRgEIiRCEohHn7d4AKQ5AAZDZD"
+curl -ik -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=EAAJffei4MlEBAAsOcdoRvIXuvZADZAIpCDqEozNZB5OcyKZBZCCn4yWU7lCLut0hGyZCHpNBjVohXbE8TwunqnwZA1nWivurifm9iMVyM74pNJvwg0WC9UriuJABn0crPMvyRm6sFzI8BfWeQ8nXWDiyJgPs4qw2fP84N7JEuE9FwZDZD"
