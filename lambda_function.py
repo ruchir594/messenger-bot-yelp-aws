@@ -174,16 +174,20 @@ def lambda_handler(event, userid, context):
             if c_cmall.lower() not in d1 and c_cmall.lower() not in d2:
                 a = a + c_cmall + ' '
         if a == '' and flag_city_this == True:
-            a = 'jankiap50 @ I think your location is ' + b + ' . What are you looking for?'
+            print 'jankiap50 @ I think your location is ' + b + ' . What are you looking for?'
             return
         else:
             a = api_callee({ 'item': a, 'location': b}, 0)
-        if flag == True:
-            a = a + "Your last location was " + b + " @ @ @ @ @"
+        if a == 'jankiap50':
+            print  'jankiap50 @ Aha!, I can only help you find food.'
+            return
         else:
-            a = a + " @ @ @ @ @"
-        print a
-        return
+            if flag == True:
+                a = a + "Your last location was " + b + " @ @ @ @ @"
+            else:
+                a = a + " @ @ @ @ @"
+            print a
+            return
 
 def api_callee(event, context):
     # read API keys
@@ -203,32 +207,34 @@ def api_callee(event, context):
     response = client.search(event['location'], **params)
     placesYelp = ""
     #print response.businesses[0]
-
-    placesYelp = str(response.businesses[0].name) +'@'+ \
-                str(response.businesses[0].mobile_url.partition("?")[0]) +'@' + \
-                str(response.businesses[0].image_url) +'@' + \
-                str(response.businesses[0].rating) +'@' + \
-                str(response.businesses[0].display_phone)+'@' + \
-                str(response.businesses[1].name)+'@' + \
-                str(response.businesses[1].mobile_url.partition("?")[0])+'@' + \
-                str(response.businesses[1].image_url) +'@' + \
-                str(response.businesses[1].rating)+'@' + \
-                str(response.businesses[1].display_phone)+'@' + \
-                str(response.businesses[2].name)+'@' + \
-                str(response.businesses[2].mobile_url.partition("?")[0])+'@'+ \
-                str(response.businesses[2].image_url) +'@' + \
-                str(response.businesses[2].rating)+'@' + \
-                str(response.businesses[2].display_phone)+'@' + \
-                str(response.businesses[3].name)+'@' + \
-                str(response.businesses[3].mobile_url.partition("?")[0])+'@' + \
-                str(response.businesses[3].image_url) +'@' + \
-                str(response.businesses[3].rating)+'@' + \
-                str(response.businesses[3].display_phone)+'@' + \
-                str(response.businesses[4].name)+'@' + \
-                str(response.businesses[4].mobile_url.partition("?")[0])+'@'+ \
-                str(response.businesses[4].image_url) +'@' + \
-                str(response.businesses[4].rating)+'@' + \
-                str(response.businesses[4].display_phone)+'@'
+    if len(response.businesses) == 0:
+        placesYelp = 'jankiap50'
+    else:
+        placesYelp = str(response.businesses[0].name) +'@'+ \
+                    str(response.businesses[0].mobile_url.partition("?")[0]) +'@' + \
+                    str(response.businesses[0].image_url) +'@' + \
+                    str(response.businesses[0].rating) +'@' + \
+                    str(response.businesses[0].display_phone)+'@' + \
+                    str(response.businesses[1].name)+'@' + \
+                    str(response.businesses[1].mobile_url.partition("?")[0])+'@' + \
+                    str(response.businesses[1].image_url) +'@' + \
+                    str(response.businesses[1].rating)+'@' + \
+                    str(response.businesses[1].display_phone)+'@' + \
+                    str(response.businesses[2].name)+'@' + \
+                    str(response.businesses[2].mobile_url.partition("?")[0])+'@'+ \
+                    str(response.businesses[2].image_url) +'@' + \
+                    str(response.businesses[2].rating)+'@' + \
+                    str(response.businesses[2].display_phone)+'@' + \
+                    str(response.businesses[3].name)+'@' + \
+                    str(response.businesses[3].mobile_url.partition("?")[0])+'@' + \
+                    str(response.businesses[3].image_url) +'@' + \
+                    str(response.businesses[3].rating)+'@' + \
+                    str(response.businesses[3].display_phone)+'@' + \
+                    str(response.businesses[4].name)+'@' + \
+                    str(response.businesses[4].mobile_url.partition("?")[0])+'@'+ \
+                    str(response.businesses[4].image_url) +'@' + \
+                    str(response.businesses[4].rating)+'@' + \
+                    str(response.businesses[4].display_phone)+'@'
 
     #return response.businesses[0].name, response.businesses[0].url.partition("?")[0], response.businesses[0].rating, response.businesses[0].display_phone
     #print str(placesYelp)

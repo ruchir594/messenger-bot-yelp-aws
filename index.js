@@ -83,7 +83,7 @@ app.post('/webhook', (req, res) => {
                     }
                     if(flag == false){
 
-                      if(words_text[0].toLowerCase() == 'hi' || words_text[0].toLowerCase() == 'hello'){
+                      if(words_text[0].toLowerCase() == 'hi' || words_text[0].toLowerCase() == 'hello' || words_text[0].toLowerCase() == 'hey'){
                         sendTextMessage(sender, "Hello, I am Natasha.")
                       }
                       else if(words_text[0].toLowerCase() == 'who'){
