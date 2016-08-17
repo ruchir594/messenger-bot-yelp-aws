@@ -160,16 +160,24 @@ def lambda_handler(event, userid, context):
         if b == '':
             flag = True
             b = person["location"]
+            flag_city_this = False
         else:
             person["location"] = b
+            flag_city_this = True
             updatejson(person)
         d2 = getWords(b)
+        for i in range(len(d2)):
+            d2[i] = d2[i].lower()
         #print d2
         a = ''
         for c_cmall in c:
-            if c_cmall not in d1 and c_cmall not in d2:
+            if c_cmall.lower() not in d1 and c_cmall.lower() not in d2:
                 a = a + c_cmall + ' '
-        a = api_callee({ 'item': a, 'location': b}, 0)
+        if a == '' and flag_city_this == True:
+            a = 'jankiap50 @ I think your location is ' + b + ' . What are you looking for?'
+            return
+        else:
+            a = api_callee({ 'item': a, 'location': b}, 0)
         if flag == True:
             a = a + "Your last location was " + b + " @ @ @ @ @"
         else:
