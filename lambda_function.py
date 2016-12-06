@@ -190,7 +190,8 @@ def lambda_handler(event, userid, context):
                 a = a + "I remember you were looking for food in " + b + " @ @ @ @ @"
             else:
                 a = a + " @ @ @ @ @"
-            print a
+            print a.encode('ascii', 'ignore')
+            
             return
 
 def api_callee(event, context):
