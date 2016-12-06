@@ -246,8 +246,7 @@ def api_callee(event, context):
     #return response.businesses[0].name, response.businesses[0].url.partition("?")[0], response.businesses[0].rating, response.businesses[0].display_phone
     #print str(placesYelp)
     result=placesYelp.encode('ascii', 'ignore')
-    print result
-    return
+    return result
     #return placesYelp
     #print str(response.businesses[0].name)
     #return str(response.businesses[0].name)
