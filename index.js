@@ -81,54 +81,8 @@ app.post('/webhook', (req, res) => {
                       }
                       i = i + 1
                     }
-                    if(flag == false){
-
-                      if(words_text[0].toLowerCase() == 'hi' || words_text[0].toLowerCase() == 'hello' || words_text[0].toLowerCase() == 'hey'){
-                        sendTextMessage(sender, "Hello, I am Natasha.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'who'){
-                        sendTextMessage(sender, "Hi there, My name is Natasha and I am a smart AI.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'what'){
-                        sendTextMessage(sender, "I use Yelp to find food near you.")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'how'){
-                        sendTextMessage(sender, "Let's just say I am smart...")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'goodbye' || words_text.indexOf('bye') != -1){
-                        sendTextMessage(sender, "Bye, thank you for dropping by.")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'thank' || words_text[0].toLowerCase() == 'thanks'){
-                        sendTextMessage(sender, "You are welcome.")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'you'){
-                        sendTextMessage(sender, "Well, you have strong opinions about me.")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'i' && words_text[1].toLowerCase() == 'want'){
-                        sendTextMessage(sender, "I cannot tell what you want, please be more specific and give me your location as well.  I will soon be smarter than I am, please come back in a week.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'i' && words_text[1].toLowerCase() == 'am'){
-                        sendTextMessage(sender, "Sure, you are!")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-                      else if(words_text[0].toLowerCase() == 'i'){
-                        sendTextMessage(sender, "Okay, maybe!")
-                      }
-                      else {
-                        sendTextMessage(sender, "hmmm... I can't tell your location. Tell me your city.")
-                        sendTextMessage(sender, "Meanwhile, please please like my page.")
-                      }
-
-                      //sendTextMessage(sender, "Nothing to Process...")
-
-
-                    } else { //bracket 102 open
-                      sendTextMessage(sender, "processing...")
+                     //bracket 102 open
+                      //sendTextMessage(sender, "processing...")
 
                       //sendTextMessage(sender, 'Text received, so gtfo?: ' + text);
                       var options = {
@@ -172,7 +126,7 @@ app.post('/webhook', (req, res) => {
                           //sendTextMessage(sender, "Like the page? Share?.")
                         }
                       });
-              } //bracket 102 close
+               //bracket 102 close
 
         } //bracket 101 close
     });

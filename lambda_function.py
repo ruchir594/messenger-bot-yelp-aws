@@ -152,7 +152,7 @@ def lambda_handler(event, userid, context):
     #return
     ##############################################################################
     if b == '' and person["location"] == "":
-        a = 'jankiap50@ Hmmm.... I cant tell your location. Please enter a valid city.'
+        a = 'jankiap50@ Hmmm.... I cant tell your location. Please tell me where you are.'
         print a
         return
     else:
@@ -183,11 +183,11 @@ def lambda_handler(event, userid, context):
             print 'jankiap50@ Aha!, I can only help you find food. I searched at location: ' + b
             return
         elif a == 'jankiap50_error_yelp':
-            print 'jankiap50@ Yelp! unavailable in your location ' + b
+            print 'jankiap50@ Yelp! is unavailable in your location ' + b
             return
         else:
             if flag == True:
-                a = a + "Your last location was " + b + " @ @ @ @ @"
+                a = a + "I remember you were looking for food in " + b + " @ @ @ @ @"
             else:
                 a = a + " @ @ @ @ @"
             print a
