@@ -22,30 +22,29 @@ from bot.nltk_chat_util import Chat, reflections
 
 pairs = (
   (r'I need (.*)',
-  ( "I need your location and your preference... both, in a single text.",
-    "Tell me where you are and what you want to eat. I am good at that. Other things... not so much.")),
+  ( "Sure you may... But I can only help you find food. Mind telling me your city?",
+    "I am not so sure about that, but i can help you find food if you tell me where you are.")),
 
 
   (r'Are you (.*)',
-  ( "I am going to be a super smart bot. I am powered by tech developed at http://tonatasha.com",
+  ( "I am a narrow AI. I am powered by tech developed at http://tonatasha.com",
     "I use Yelp API to help you, I am just a tiny AI who is learning.",
     "Perhaps you believe I am %1. I am good at only finding food.",
     "I may be %1 -- whatever you think doesn't matter! :P Let me find some eating place for you.")),
 
   (r'How (.*)',
-  ( "How do you suppose?",
-    "Perhaps you can answer your own question.",
-    "What is it you're really asking?")),
+  ( "How I do is of my business. Mind minding your own sweetheart?",
+    "Perhaps you could answer your own questions love.",
+    "You better mind your own business.")),
 
   (r'Because (.*)',
-  ( "Is that the real reason?",
-    "What other reasons come to mind?",
-    "Does that reason apply to anything else?",
-    "If %1, what else must be true?")),
+  ( "Maybe i don't care.",
+    "Sure, if you say so.",
+    "You know you are talking to yourself right?")),
 
   (r'(.*) sorry (.*)',
-  ( "There are many times when no apology is needed. :P Let me find some eating place for you.",
-    "What feelings do you have when you apologize? :P Let me find some eating place for you.")),
+  ( "There are many times when no apology is needed. :P I shall only find food near you.",
+    "Don't :P Let me find food near your place.")),
 
   (r'Hello(.*)',
   ( "Hello... I'm glad you could drop by today.",
@@ -80,21 +79,24 @@ pairs = (
   ( "You seem very certain.","What would you like to eat? where?")),
 
   (r'Can you (.*)',
-  ( "What makes you think I can't %1?",
-    "If I could %1, then what?",
-    "Why do you ask if I can %1?")),
+  ( "Well, I can find food in your city.",
+    "I can indeed find food near your locale.",
+    "Find food, I can. Yoda fan, I am.")),
 
   (r'Can I (.*)',
-  ( "You are a free person in a free country. Aren't you?. Let me help you find food.",
-  "I am not good at things other than finding food.")),
+  ( "You are a free person in a free country. Aren't you?. I can help you find food though.",
+  "I am good at finding food, so... ",
+  "You know you are talking to yourself right?")),
 
   (r'You are (.*)',
-  ( "All I do is find food places near you.",
-    "Let me serve you. Thank you. Ask me what and where you want to eat. I need both information in a single text. ")),
+  ( "I am also supersmart. And a narcissist. ",
+    "You have strong opinions about me. ",
+    "How kind of you.",
+    "Your words, not mine.")),
 
     (r'(.*)',
-    ( "I am not good at things other than finding food. please specify both food and city/town in the text.",
-    "I am good at finding food in a city, other things not so much. please specify both food and city/town in the text."))
+    ( "I am goot at finding food in your locale. Other things not so much.",
+    "If you tell me your city, i can probably help you find food."))
 )
 
 eliza_chatbot = Chat(pairs, reflections)

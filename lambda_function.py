@@ -11,13 +11,17 @@ import natasha_chat
 from geotext import GeoText
 from crf_location import crf_exec
 
-####################################################################
+##############################################################################
+# --- userful functions
+##############################################################################
 def getWords(data):
     return re.compile(r"[\w']+").findall(data)
 
 def getWords_special_location(data):
     return re.compile(r"[\w'/.,-@]+").findall(data)
-
+##############################################################################
+# ---- JSON Database lib functions
+##############################################################################
 def oldner(event, userid):
     with open('data.json', 'r') as f:
          data = json.load(f)
@@ -55,7 +59,9 @@ def updatejson(person):
             break
     with open('data.json', 'w') as f:
          json.dump(data, f)
-
+##############################################################################
+# ---- the main function
+##############################################################################
 def lambda_handler(event, userid, context):
     # Reading data back
     person = oldner(event, userid)
@@ -75,7 +81,7 @@ def lambda_handler(event, userid, context):
             'over','after','beneath','under','above','the','and','a','that','I','it','not','he','as','you', \
             'this','but','his','they','her','she','or','an','will','my','one','all','would','there','their', 'talk', \
             'talking', 'love', 'loved', 'hello', 'help', 'helping', 'helped', 'pleasure', 'bye', 'goodbye', 'care', 'later', \
-            'no','nothing', 'thanks', 'welcome', 'something', 'hey', 'am']
+            'no','nothing', 'thanks', 'welcome', 'something', 'hey', 'am', 'me']
     #d1 = []
     kiss = ''
     bang = ''
@@ -95,6 +101,8 @@ def lambda_handler(event, userid, context):
             else:
                 kiss = kiss + c_cmall[:-1] + ' '
                 bang = bang + c_cmall[:-1] + ' ' + c_cmall[-1] + ' '
+    ##############################################################################
+    # --- find cities from python open source lib
     #################################################################################
     c = getWords_special_location(event)
     a = ''
@@ -106,6 +114,8 @@ def lambda_handler(event, userid, context):
     #print a
     potentiav = GeoText(a)
     b1 = potentiav.cities
+    ##############################################################################
+    # ----- use CRF for NER
     #################################################################################
     a = crf_exec(bang, 0)
     i=0
@@ -119,7 +129,9 @@ def lambda_handler(event, userid, context):
             j = i[0]
         data_ayrton.append([str(j), str(i[1]), str(i[2]), str(i[3])])
     c = data_ayrton
-    ######################################################################
+    ##############################################################################
+    # --- find location from CRF -----
+    ##############################################################################
     data_ayrton = []
     i=0
     p_loc = ''
@@ -150,6 +162,11 @@ def lambda_handler(event, userid, context):
     b = j
     #print b
     #return
+    # we remember their location.
+    # The very first thing the bot does is that it will keep asking you about
+    # the location until it is satisfied
+    ##############################################################################
+    # ------- location of USER
     ##############################################################################
     if b == '' and person["location"] == "":
         a = 'jankiap50@ Hmmm.... I cant tell your location. Please tell me where you are.'
@@ -158,24 +175,39 @@ def lambda_handler(event, userid, context):
     else:
         c = getWords(event)
         flag = False
+        # ----- flag_city_this remembers if we got location from this incoming text
+        # ----- or from JSONDB
+        # we receive location from JSON Database of USER
         if b == '':
             flag = True
             b = person["location"]
             flag_city_this = False
+        # The location is found using NER which is a CRF model
+        # and the JSON is updated
         else:
             person["location"] = b
             flag_city_this = True
             updatejson(person)
+        ##############################################################################
+        # ----- see if he wants to eat some food
+        ##############################################################################
         d2 = getWords(b)
         for i in range(len(d2)):
             d2[i] = d2[i].lower()
         #print d2
+        # the variable "a" will store what he may want to eat
         a = ''
         for c_cmall in c:
             if c_cmall.lower() not in d1 and c_cmall.lower() not in d2:
                 a = a + c_cmall + ' '
+        #print 'a ', a
+        #print len(a), type(a)
+        ##############################################################################
         if a == '' and flag_city_this == True:
             print 'jankiap50@ I think your location is ' + b + ' . What are you looking for?'
+            return
+        elif a == '' and flag_city_this == False:
+            print 'SIMPLE NLG MODULE'
             return
         else:
             a = api_callee({ 'item': a, 'location': b}, 0)
@@ -191,9 +223,10 @@ def lambda_handler(event, userid, context):
             else:
                 a = a + " @ @ @ @ @"
             print a.encode('ascii', 'ignore')
-            
             return
-
+##############################################################################
+# ----- Calling YELP API ----
+##############################################################################
 def api_callee(event, context):
     # read API keys
     with io.open('config_secret.json') as cred:
