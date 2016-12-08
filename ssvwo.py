@@ -1,3 +1,4 @@
+sys.path.insert(0, './head')
 import re
 import word2vec
 import math
