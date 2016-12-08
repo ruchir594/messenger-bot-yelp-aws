@@ -10,6 +10,8 @@ sys.path.insert(0, './bot')
 import natasha_chat
 from geotext import GeoText
 from crf_location import crf_exec
+from natasha_chat import eliza_chat
+from ssvwo import prod
 
 ##############################################################################
 # --- userful functions
@@ -40,7 +42,8 @@ def oldner(event, userid):
               "food":"",
               "generated":"False",
               "flag":"",
-              "count":0
+              "count":0,
+              "text":"first time event"
               }
         data["people"].append(killbill)
         with open('data.json', 'w') as f:
@@ -55,6 +58,7 @@ def updatejson(person):
     for i in data['people']:
         if i['userid'] == person['userid']:
             i['location'] = person['location']
+            i['text'] = person['text']
             i['count'] = i['count'] + 1
             break
     with open('data.json', 'w') as f:
@@ -74,14 +78,16 @@ def lambda_handler(event, userid, context):
             'the', 'a', 'an', 'about', 'for', 'with', 'should', 'could', 'would', 'out','time','person','year','way','day',\
             'thing','man','world','life','hand','part','child','eye','woman','place','work','week', 'doing',\
             'case','point','government','company','number','group','problem','fact','be','have','do','say',\
-            'get','make','go','know','take','see','come','think','look','want','give','use','find','tell', 'telling',\
+            'get','make','go','know','take','see','come','think','look','give','use','find','tell', 'telling',\
             'ask','work','seem','feel','try','leave','call','good','new','first','last','long','great','little','own','other',\
             'old','right','big','high','different','small','large','next','early','young','important','few',\
             'public','bad','same','able','to','of','in','for','on','with','at','by','from','up','about','into',\
             'over','after','beneath','under','above','the','and','a','that','I','it','not','he','as','you', \
             'this','but','his','they','her','she','or','an','will','my','one','all','would','there','their', 'talk', \
             'talking', 'love', 'loved', 'hello', 'help', 'helping', 'helped', 'pleasure', 'bye', 'goodbye', 'care', 'later', \
-            'no','nothing', 'thanks', 'welcome', 'something', 'hey', 'am', 'me']
+            'no','nothing', 'thanks', 'welcome', 'something', 'hey', 'am', 'me', 'need', 'bot', 'droid', 'ai', 'smart', 'super',\
+            'moron', 'dumb', 'fuck', 'fucking', 'sex', 'indeed', 'sure', 'enough', 'man', 'show', 'showing', 'then', 'than',\
+            'ok', 'okay', 'alright', 'cool', 'dude', 'lady', 'girl']
     #d1 = []
     kiss = ''
     bang = ''
@@ -162,6 +168,30 @@ def lambda_handler(event, userid, context):
     b = j
     #print b
     #return
+    #############################################################################
+    # checking if something important is found in here
+    a = ''
+    c = getWords(event)
+    for c_cmall in c:
+        if c_cmall.lower() not in d1:
+            a = a + c_cmall + ' '
+    if a == '':
+        #######
+        ####### ---- calling ssv-wo.py
+        #######
+        similarity = prod(person['text'], event.lower())
+        #print person['text'], event.lower(), similarity
+        person['text'] = event.lower()
+        updatejson(person)
+        if similarity > 0.8:
+            print 'jankiap50@ ' + eliza_chat('similarityhigh')
+            return
+        if similarity > 0.55:
+            print 'jankiap50@ ' + eliza_chat('similaritycall')
+            return
+        event = event.lower()
+        print 'jankiap50@ ' + eliza_chat(event)
+        return
     # we remember their location.
     # The very first thing the bot does is that it will keep asking you about
     # the location until it is satisfied
@@ -169,7 +199,7 @@ def lambda_handler(event, userid, context):
     # ------- location of USER
     ##############################################################################
     if b == '' and person["location"] == "":
-        a = 'jankiap50@ Hmmm.... I cant tell your location. Please tell me where you are.'
+        a = 'jankiap50@ Hmmm.... If you tell me your city, i can help you find food.'
         print a
         return
     else:
@@ -207,7 +237,9 @@ def lambda_handler(event, userid, context):
             print 'jankiap50@ I think your location is ' + b + ' . What are you looking for?'
             return
         elif a == '' and flag_city_this == False:
-            print 'SIMPLE NLG MODULE'
+            event = event.lower()
+            print 'jankiap50@ ' + eliza_chat(event)
+            #print 'SIMPLE NLG MODULE'
             return
         else:
             a = api_callee({ 'item': a, 'location': b}, 0)

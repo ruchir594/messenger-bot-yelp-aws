@@ -16,11 +16,25 @@ from __future__ import print_function
 
 from bot.nltk_chat_util import Chat, reflections
 
+import random
 # a table of response pairs, where each pair consists of a
 # regular expression, and a list of possible responses,
 # with group-macros labelled as %1, %2.
 
 pairs = (
+
+    (r'similaritycall(.*)',
+    ( "Aren't you asking me the same thing over and over again. :P ",
+      "I think you are trying to fool me by asking me the same thing again. ",
+      "Haven't we talked about this already? Maybe?",
+      "I think We have spoken about this just now.")),
+
+     (r'similarityhigh(.*)',
+     ( "Told you the last time",
+       "We just talked about this Pretty Human",
+       "I am pretty sure I told you already",
+       "I guess I just told you.")),
+
   (r'I need (.*)',
   ( "Sure you may... But I can only help you find food. Mind telling me your city?",
     "I am not so sure about that, but i can help you find food if you tell me where you are.")),
@@ -70,7 +84,6 @@ pairs = (
   ( "I need you to tell me what would you like to eat and where.",
     "OK, but can you elaborate a bit? What and where you want to eat?")),
 
-
   (r'Is it (.*)',
   ( "I am only good at finding places to eat. Please hit me up with new query. ",
     "It could well be that %1. I don't know.")),
@@ -94,14 +107,42 @@ pairs = (
     "How kind of you.",
     "Your words, not mine.")),
 
+  (r'Hello(.*)',
+  ( "Hello!!",
+    "Hiiii ",
+    "Hey there",
+    "Hello indeed")),
+
+    (r'Hey(.*)',
+    ( "Hello!!",
+      "Hiiii ",
+      "Hey there",
+      "Hello indeed")),
+
+    (r'Hi(.*)',
+    ( "Hello!!",
+      "Hiiii ",
+      "Hey there",
+      "Hello indeed")),
+
+     (r'(.*)Thank(.*)',
+     ( "You are welcome",
+       "Welcome you are ",
+       "Pleasure was mine",
+       "Loved helping you out")),
+
     (r'(.*)',
-    ( "I am goot at finding food in your locale. Other things not so much.",
-    "If you tell me your city, i can probably help you find food."))
+    ( "Cool!",
+    "IDK!",
+    "Sure....",
+    "If you say so!"))
 )
 
 eliza_chatbot = Chat(pairs, reflections)
 
 def eliza_chat(incoming_message):
+    if incoming_message == 'hello' or incoming_message == 'hi' or incoming_message == 'hey':
+        return random.choice(['Hello!!', 'Hiiii', 'Hey there', 'Hello indeed'])
     return eliza_chatbot.converse3(incoming_message)
 
 def demo():

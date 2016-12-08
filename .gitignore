@@ -2,3 +2,4 @@ ayrton
 config_secret.json
 yelpambda.js
 backup.js
+*.bin
