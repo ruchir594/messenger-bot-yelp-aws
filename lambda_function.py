@@ -281,19 +281,8 @@ def api_callee(event, context):
     #print str(placesYelp)
     result=placesYelp.encode('ascii', 'ignore')
     return result
-    #return placesYelp
-    #print str(response.businesses[0].name)
-    #return str(response.businesses[0].name)
-
-#file = open("data.txt", "w")
-#file.write(sys.argv[2])
-#file.close()
-# Writing JSON data
-#with open('data.json', 'w') as f:
-#     json.dump(sys.argv[2], f)
 
 #print type(lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0))
-#print lambda_handler({ 'item': 'blueberry cheesecake', 'location': 'san francisco'}, 0)
 #print lambda_handler("I would like to live in new york city, or in lake forest area.", 0)
 jdblove = urllib.unquote_plus(urllib.unquote_plus(str(sys.argv[1])))
 lambda_handler(str(jdblove), sys.argv[2], 0)
