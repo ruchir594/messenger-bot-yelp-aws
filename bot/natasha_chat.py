@@ -120,10 +120,10 @@ pairs = (
       "Hello indeed")),
 
     (r'Hi(.*)',
-    ( "Hello!!",
-      "Hiiii ",
-      "Hey there",
-      "Hello indeed")),
+    ( "Hello!! :)",
+      "Hiiii :) ",
+      "Hey there :)",
+      "Hello indeed :)")),
 
      (r'(.*)Thank(.*)',
      ( "You are welcome",
