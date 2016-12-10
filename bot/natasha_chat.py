@@ -142,7 +142,7 @@ eliza_chatbot = Chat(pairs, reflections)
 
 def eliza_chat(incoming_message):
     if incoming_message == 'hello' or incoming_message == 'hi' or incoming_message == 'hey':
-        return random.choice(['Hello!!', 'Hiiii', 'Hey there', 'Hello indeed'])
+        return random.choice(['Hello!! :)', 'Hiiii :) ', 'Hey there :) ', 'Hello indeed :) '])
     return eliza_chatbot.converse3(incoming_message)
 
 def demo():
